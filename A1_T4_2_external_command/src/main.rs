@@ -29,7 +29,12 @@ fn main() {
         Err(e) => {
             match output_windows {
                 Ok(output) => {
-                    let output_string = String::from_utf8(output.stdout).unwrap();
+                    
+                    // Convert to a byte array for from_utf8_lossy. It can happen that the output.stdout contains non-utf8 characters
+                    let output_byte_array: &[u8] = output.stdout.as_slice();
+
+                    let output_string = String::from_utf8_lossy(output_byte_array);
+                    
                     println!("output Windows 'systeminfo'");
                     for (i,line) in output_string.lines().enumerate() {
                         println!("{}", line);

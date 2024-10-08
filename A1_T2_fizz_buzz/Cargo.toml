@@ -1,4 +1,4 @@
 [package]
-name = "A1_fizz_buzz"
+name = "A1_T2_fizz_buzz"
 version = "0.1.0"
 edition = "2021"

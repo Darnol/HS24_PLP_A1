@@ -1,0 +1,2 @@
+Each task / subtask is contained in a separate folder. Each folder contains the `Cargo.toml` and a `src/main.rs` file. The precompiled binaries are in `target/debug/<FOLDER_NAME>.exe`.  
+To run a task, navigate to the folder, for example `cd A1_T1_hello_world` and run `cargo run`.

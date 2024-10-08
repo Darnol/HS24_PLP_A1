@@ -1,9 +1,25 @@
 
 fn main() {
 
-    let test_str_encode: String = "abcde".to_string();
-    let test_str_add: String = "jjh".to_string();
-    let test_offset: i32 = -5;
+    // Example 1
+    let mut test_str_encode: String = "abcde".to_string();
+    let mut test_str_add: String = "jjh".to_string();
+    let mut test_offset: i32 = -5;
+
+    println!("Converting '{}' with offset {} and additional string '{}'", test_str_encode, test_offset, test_str_add);    
+    let res = encode(&test_str_encode, test_offset, &test_str_add).unwrap();
+    println!("Result Encoding: {}", res);
+
+    println!("Decoding '{}' with offset {}", res, test_offset);
+    let res = decode(&res, test_offset).unwrap();
+    println!("Result Decoding '{}'", res);
+
+
+
+    // Example 2
+    let mut test_str_encode: String = "xyz".to_string();
+    let mut test_str_add: String = "a".to_string();
+    let mut test_offset: i32 = 3;
 
     println!("Converting '{}' with offset {} and additional string '{}'", test_str_encode, test_offset, test_str_add);    
     let res = encode(&test_str_encode, test_offset, &test_str_add).unwrap();
