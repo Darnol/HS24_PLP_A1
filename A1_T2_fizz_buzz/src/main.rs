@@ -12,8 +12,7 @@ fn main() {
         let _ = std::io::stdout().flush().expect("Failed to flush stdout"); // Ensures the prompt is printed before waiting for input
         let _ = std::io::stdin().read_line(&mut user_input).expect("Failed to read line");
             
-        // CHATGPT proposed this trim function so that match does not need to care about newline after read_line()
-        // Also the book chapter 2 uses this approach
+        // The trim approach is also used in the example in the book chapter 2 to trim leading and trailing whitespaces
         let trimmed_input: &str = user_input.trim();
 
         // Catch 'quit' early
@@ -23,6 +22,7 @@ fn main() {
         }
 
         // Now, we want to split the trimmed_input into a vector of strings, split by whitespaces
+        // Here we cant use an array, because we dont know the length of the input yet. Hence we use a Vec
         let split_input: Vec<&str> = trimmed_input.split_whitespace().collect();
 
         // Use match expression (most Rustacean way)
