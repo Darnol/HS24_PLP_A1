@@ -12,8 +12,10 @@ As stated in the assignment, I also included for each task folder an executable 
 where <BINARY> has the same name as <TASK_FOLDER>. Running the binaries of the second task `A1_T2_fizz_buzz` would therefore require
 ```bash
 cd A1_T2_fizz_buzz/target/debug
-./A1_T2_fizz_buzz // On macos or linux
-A1_T2_fizz_buzz // On windows
+# On macos or linux
+./A1_T2_fizz_buzz
+# On windows
+A1_T2_fizz_buzz
 ```
 
 # Organization
