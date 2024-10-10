@@ -16,6 +16,9 @@ cd A1_T2_fizz_buzz/target/debug
 A1_T2_fizz_buzz // On windows
 ```
 
+# Organization
+I decided to make separate cargo folders for each subtask in task 4. So there are three folders with T4 in it, one for each subtask.
+
 # LLM Usage
 I used ChatGPT 4o and also Github Copilot.  
 I tried to indicate with comments whenever a certain snipped was proposed by AI which I didn't come up with by myself after reading documentation.  
