@@ -8,10 +8,10 @@
 /// Then I considered using the strong-xml crate, but I did not manage to get an intuitive grip on understanding how to use it
 
 /// Finally I tried yaserde, which to me offered a good documentaiton and a straightforward way to parse XML documents.
-/// I define structs that represent the elements of the XML document I want to parse, and then I use yaserde to parse the XML document into these structs. NOTE on attributes: XML attributes in general can not be well represented in Rust structs, so I transform them into child elements. For example: 'category' of a book element simply becomes a field in the book struct. Same for title and 'lang'.
+/// I define structs that represent the elements of the XML document I want to parse, and then I use yaserde to parse the XML document into these structs.
+/// NOTE on attributes: XML attributes in general can not be well represented in Rust structs, so I transform them into child elements. For example: 'category' of a book element simply becomes a field in the book struct. Same for title and 'lang'.
 
 use reqwest::blocking::get;
-use yaserde::YaDeserialize;
 use yaserde_derive::YaDeserialize;
 
 // Define the structs that make up the elements of the XML document we want to parse

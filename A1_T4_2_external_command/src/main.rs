@@ -1,3 +1,4 @@
+// For external commands, we can use the std::process::Command module from Rust
 use std::process::Command;
 
 // For MacOS, Linux, I chose 'ps -eo pid,user,args' command, which lists all the processes running on the system. This makes sure there is at least 10 lines of output to 
@@ -15,9 +16,15 @@ fn main() {
     let output_windows = Command::new("systeminfo")
         .output();
 
+    // At runtime we do now know if on UNIX or Windows, try both. Unix first
     match output_macos_linux {
         Ok(output) => {
-            let output_string = String::from_utf8(output.stdout).unwrap();
+            
+            // Convert to a byte array for from_utf8_lossy. It can happen that the output.stdout contains non-utf8 characters
+            let output_byte_array: &[u8] = output.stdout.as_slice();
+
+            let output_string = String::from_utf8_lossy(output_byte_array);
+            
             println!("output MacOs Linux 'ps aux':");
             for (i,line) in output_string.lines().enumerate() {
                 println!("{}", line);
@@ -26,7 +33,8 @@ fn main() {
                 }
             }
         },
-        Err(e) => {
+        Err(_) => {
+            // If execution fails, try the windows command
             match output_windows {
                 Ok(output) => {
                     
