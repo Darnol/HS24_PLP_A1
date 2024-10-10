@@ -1,0 +1,10 @@
+# Ignore all build files except for the executable
+
+target/.rustc_info.json
+target/CACHEDIR.tag
+
+# Ignore everything in target/debug
+target/debug/**
+
+# Except the files in target/debug directly and have no period
+!target/debug/[^.]*
