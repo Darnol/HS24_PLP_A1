@@ -10,3 +10,4 @@ Cargo.lock
 
 .DS-Store
 .DS_Store
+.vscode/
