@@ -2,8 +2,8 @@
 fn main() {
 
     // Example 1
-    let mut test_str_encode: String = "abcde".to_string();
-    let mut test_str_add: String = "jjh".to_string();
+    let mut test_str_encode: String = String::from("abcde");
+    let mut test_str_add: String = String::from("jjh");
     let mut test_offset: i32 = -5;
 
     println!("Converting '{}' with offset {} and additional string '{}'", test_str_encode, test_offset, test_str_add);    
@@ -17,8 +17,8 @@ fn main() {
 
 
     // Example 2
-    let mut test_str_encode: String = "xyz".to_string();
-    let mut test_str_add: String = "a".to_string();
+    let mut test_str_encode: String = String::from("xyz");
+    let mut test_str_add: String = String::from("a");
     let mut test_offset: i32 = 3;
 
     println!("Converting '{}' with offset {} and additional string '{}'", test_str_encode, test_offset, test_str_add);    
@@ -61,7 +61,7 @@ fn encode(str_to_encode: &String, offset: i32, str_add: &String) -> Option<Strin
     let str_to_encode_vector: Vec<u8> = str_to_encode.as_bytes().to_vec();
     let str_add_vector: Vec<u8> = str_add.as_bytes().to_vec();
     
-    // insert the str_add_vector values into str_to_encode_vector
+    // insert the str_add_vector values into str_to_encode_vector. Here we need a mutable vector
     let mut str_to_encode_vector_with_add: Vec<u8> = Vec::new();
     // Make sure the str_add_vector is cycled
     let mut ct: usize = 0;
@@ -70,7 +70,7 @@ fn encode(str_to_encode: &String, offset: i32, str_add: &String) -> Option<Strin
         // push the original and one of the str_add_vector values
         str_to_encode_vector_with_add.push(str_to_encode_vector[v]);
         
-        // Push one of the str_add_vector elements, cycle if needed. Do not include for last element
+        // Push one of the str_add_vector elements, cycle if needed. Do not add after the last element of str_to_encode_vector
         if v < str_to_encode_vector.len() - 1 {
             str_to_encode_vector_with_add.push(str_add_vector[ct % str_add_vector.len()]);
             ct += 1;
@@ -125,15 +125,17 @@ fn decode(str_to_decode: &String, offset: i32) -> Option<String> {
 }
 
 /// Given a lower and upper bound, wrap around the result of start + offset in that range
+/// Since the result is used as an ascii byte, return u8
 fn wrap_ascii(start: i32, offset: i32, lower_bound: i32, upper_bound: i32) -> u8 {
     
     let range = upper_bound - lower_bound + 1;
 
     let start_with_offset = start + offset;
     match start_with_offset {
+        // If the start_with_offset is lower than lower bound, wrap around to the upper bound 
         _ if start_with_offset < lower_bound => {
             let diff = lower_bound - start_with_offset - 1;
-            let diff_mod_range = diff % range;
+            let diff_mod_range = diff % range; // make sure we only wrap around the excess of the range
             return (upper_bound - diff_mod_range) as u8;
         },
         _ if start_with_offset > upper_bound => {
@@ -141,6 +143,6 @@ fn wrap_ascii(start: i32, offset: i32, lower_bound: i32, upper_bound: i32) -> u8
             let diff_mod_range = diff % range;
             return (lower_bound + diff_mod_range) as u8;
         },
-        _ => return start_with_offset as u8,
+        _ => return start_with_offset as u8, // If the offset does not move us outside of the range, just return the result
     }
 }
